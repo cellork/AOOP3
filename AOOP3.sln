@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOOP3", "AOOP3.csproj", "{BD9A2C27-DC59-9BBF-480D-AF7487BDEEB5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD9A2C27-DC59-9BBF-480D-AF7487BDEEB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD9A2C27-DC59-9BBF-480D-AF7487BDEEB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD9A2C27-DC59-9BBF-480D-AF7487BDEEB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD9A2C27-DC59-9BBF-480D-AF7487BDEEB5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E693EEEF-FC34-42DC-83D0-6A16C1E5E1EC}
+	EndGlobalSection
+EndGlobal
