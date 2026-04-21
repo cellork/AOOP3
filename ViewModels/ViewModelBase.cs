@@ -2,6 +2,7 @@
 
 namespace AOOP3.ViewModels;
 
-public abstract class ViewModelBase : ObservableObject
+public partial class ViewModelBase : ObservableObject
 {
+    
 }
