@@ -40,7 +40,10 @@
             </Grid>
         </Border>
 
-        <mapsui:MapControl Grid.Column="1" Map="{Binding Map}" />
+        <!-- Use a container for MapControl, and ensure proper layout rounding/bounds -->
+        <Border Grid.Column="1" ClipToBounds="True" UseLayoutRounding="True" MinWidth="100">
+            <mapsui:MapControl Map="{Binding Map}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        </Border>
         
     </Grid>
 </UserControl>

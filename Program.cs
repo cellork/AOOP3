@@ -1,4 +1,4 @@
-﻿using Avalonia;
+using Avalonia;
 using System;
 
 namespace AOOP3;
@@ -16,6 +16,9 @@ sealed class Program
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
+            .With(new Win32PlatformOptions { RenderingMode = new[] { Win32RenderingMode.Software } })
+            .With(new X11PlatformOptions { RenderingMode = new[] { X11RenderingMode.Software } })
+            .With(new AvaloniaNativePlatformOptions { RenderingMode = new[] { AvaloniaNativeRenderingMode.Software } })
 #if DEBUG
             .WithDeveloperTools()
 #endif
