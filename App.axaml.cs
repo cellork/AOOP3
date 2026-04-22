@@ -1,11 +1,9 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
-using Avalonia.Data.Core.Plugins;
-using System.Linq;
 using Avalonia.Markup.Xaml;
 using AOOP3.ViewModels;
 using AOOP3.Views;
+using AOOP3.Services;
 
 namespace AOOP3;
 
@@ -20,9 +18,12 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            var dataRepo = new FlightRepository();
+            var flightService = new FlightService(dataRepo);
+            var exportService = new ExportService();
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = new MainWindowViewModel(flightService, exportService),
             };
         }
 

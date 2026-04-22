@@ -3,18 +3,59 @@
         xmlns:vm="using:AOOP3.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
         x:Class="AOOP3.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="AOOP3">
+        Title="Flight Tracker — Sønderborg Airport"
+        Background="#1E1E1E">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid RowDefinitions="Auto, *, Auto">
+        <!-- Top Navigation Bar -->
+        <Grid Grid.Row="0">
+            <Border Background="#2D5C9C" Padding="10, 10, 10, 40">
+                <Grid ColumnDefinitions="Auto, *, Auto">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                        <TextBlock Text="⬡" Foreground="White" FontSize="20"/>
+                        <TextBlock Text="Flight Tracker — Sønderborg Airport" Foreground="White" FontSize="20" FontWeight="SemiBold"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="15" VerticalAlignment="Center">
+                        <TextBlock Text="flights.json" Foreground="#DDDDDD" VerticalAlignment="Center"/>
+                        <TextBlock Text="1,248 records" Foreground="#DDDDDD" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" Spacing="10" Margin="10,40,10,0" VerticalAlignment="Bottom">
+                <Button Content="Route visualization" Command="{Binding NavigateToRouteCommand}"
+                        Foreground="White" CornerRadius="4" Padding="15,8" BorderThickness="1" BorderBrush="#4A88C5"/>
+                <Button Content="Airport flight info" Command="{Binding NavigateToFlightInfoCommand}"
+                        Foreground="White" CornerRadius="4" Padding="15,8" BorderThickness="1" BorderBrush="#4A88C5"/>
+                <Button Content="Analytics" Command="{Binding NavigateToAnalyticsCommand}"
+                        Foreground="White" CornerRadius="4" Padding="15,8" BorderThickness="1" BorderBrush="#4A88C5"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Main Content Area -->
+        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}" Margin="10, 20, 10, 10" />
+
+        <!-- Bottom Status/Export Bar -->
+        <Border Grid.Row="2" Background="#2C2C2C" Padding="10" BorderBrush="#444444" BorderThickness="0,1,0,0">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                    <TextBlock Text="Export" Foreground="#AAAAAA" VerticalAlignment="Center"/>
+                    <Button Content="Flight data · CSV" Background="Transparent" BorderBrush="#555555" BorderThickness="1" Foreground="White" CornerRadius="4" Command="{Binding ExportCsvCommand}"/>
+                    <Button Content="Analytics · TXT" Background="Transparent" BorderBrush="#555555" BorderThickness="1" Foreground="White" CornerRadius="4" Command="{Binding ExportPdfCommand}"/>
+                    <TextBlock Text="{Binding ExportStatus}" Foreground="#888888" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                </StackPanel>
+                <TextBlock Grid.Column="2" Text=".NET · Avalonia · MVVM" Foreground="#AAAAAA" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+    </Grid>
 
 </Window>

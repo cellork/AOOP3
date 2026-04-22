@@ -1,10 +1,78 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:AOOP3.ViewModels"
+             xmlns:models="using:AOOP3.Models"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:sp="clr-namespace:ScottPlot.Avalonia;assembly=ScottPlot.Avalonia"
-             mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="550"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
              x:Class="AOOP3.Views.FlightInfoView"
              x:DataType="vm:FlightInfoViewModel">
+
+    <Grid ColumnDefinitions="300, *">
+        <!-- Left Pane: Airport Search and List -->
+        <Border Grid.Column="0" Background="#2C2C2C" Padding="15" CornerRadius="8" Margin="0,0,10,0">
+            <Grid RowDefinitions="Auto, *">
+                <StackPanel Grid.Row="0">
+                    <TextBlock Text="SELECT AIRPORT" Foreground="#AAAAAA" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                    <TextBox Text="{Binding SearchQuery, Mode=TwoWay}"
+                             PlaceholderText="Search..."
+                             Background="#1E1E1E" Foreground="White" BorderBrush="#444444"
+                             Margin="0,0,0,15" Padding="10"/>
+                </StackPanel>
+
+                <ListBox Grid.Row="1"
+                         ItemsSource="{Binding FilteredAirports}"
+                         SelectedItem="{Binding SelectedAirport, Mode=TwoWay}"
+                         Background="Transparent">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,5">
+                                <TextBlock Text="{Binding IataCode}" Foreground="#4A88C5" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding City}" Foreground="#AAAAAA"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
+
+        <!-- Right Pane: Flight List -->
+        <Border Grid.Column="1" Background="#2C2C2C" Padding="20" CornerRadius="8">
+            <Grid RowDefinitions="Auto, *, Auto">
+                <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="0,0,0,20">
+                    <TextBlock Grid.Column="0" Text="{Binding SelectedAirport.IataCode, StringFormat='FLIGHTS FROM {0}'}"
+                               Foreground="#AAAAAA" FontWeight="SemiBold" VerticalAlignment="Center"/>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                        <TextBlock Text="Status" Foreground="#AAAAAA" VerticalAlignment="Center"/>
+                        <ComboBox ItemsSource="{Binding StatusOptions}" SelectedItem="{Binding SelectedStatus, Mode=TwoWay}" Width="150" Background="#1E1E1E" Foreground="White"/>
+                    </StackPanel>
+                </Grid>
+
+                <DataGrid Grid.Row="1" ItemsSource="{Binding FilteredFlights}" AutoGenerateColumns="False" IsReadOnly="True"
+                          Background="Transparent" GridLinesVisibility="None" RowBackground="Transparent">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Flight" Binding="{Binding FlightNumber}" Foreground="White" Width="*"/>
+                        <DataGridTextColumn Header="Destination" Binding="{Binding ArrivalAirport}" Foreground="White" Width="2*"/>
+                        <DataGridTextColumn Header="Departure" Binding="{Binding ScheduledDeparture, StringFormat='HH:mm'}" Foreground="White" Width="*"/>
+                        <DataGridTextColumn Header="Aircraft" Binding="{Binding AircraftType}" Foreground="White" Width="1.5*"/>
+                        <DataGridTemplateColumn Header="Status" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="12" Padding="10,4" Margin="5"
+                                            HorizontalAlignment="Left" VerticalAlignment="Center"
+                                            Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}">
+                                        <TextBlock Text="{Binding Status}" Foreground="Black" FontSize="12" FontWeight="SemiBold"/>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <TextBlock Grid.Row="2" Text="{Binding FlightsSummary}" Foreground="#AAAAAA" Margin="0,15,0,0"/>
+            </Grid>
+        </Border>
+    </Grid>
+
 </UserControl>

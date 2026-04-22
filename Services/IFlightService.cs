@@ -6,6 +6,6 @@ namespace AOOP3.Services
     public interface IFlightService
     {
         IEnumerable<Airport> GetAllAirports();
-        IEnumerable<object> GetAllFlights();
+        IEnumerable<Flight> GetAllFlights();
     }
 }

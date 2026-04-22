@@ -1,10 +1,52 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:AOOP3.ViewModels"
+             xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:sp="clr-namespace:ScottPlot.Avalonia;assembly=ScottPlot.Avalonia"
-             mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="550"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
              x:Class="AOOP3.Views.AnalyticsView"
              x:DataType="vm:AnalyticsViewModel">
+
+    <Grid RowDefinitions="*, *, Auto">
+        <Grid Grid.Row="0" ColumnDefinitions="*, *">
+            <!-- Busiest Routes -->
+            <Border Grid.Column="0" Background="#2C2C2C" Padding="15" CornerRadius="8" Margin="0,0,10,10">
+                <Grid RowDefinitions="Auto, *">
+                    <TextBlock Grid.Row="0" Text="Busiest routes by flight count" Foreground="#AAAAAA" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                    <lvc:CartesianChart Grid.Row="1"
+                                        Series="{Binding BusiestRoutesSeries}"
+                                        YAxes="{Binding BusiestRoutesYAxes}"
+                                        XAxes="{Binding BusiestRoutesXAxes}">
+                    </lvc:CartesianChart>
+                </Grid>
+            </Border>
+
+            <!-- Top Airlines -->
+            <Border Grid.Column="1" Background="#2C2C2C" Padding="15" CornerRadius="8" Margin="0,0,0,10">
+                <Grid RowDefinitions="Auto, *">
+                    <TextBlock Grid.Row="0" Text="Top airlines by traffic volume" Foreground="#AAAAAA" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                    <lvc:PieChart Grid.Row="1"
+                                  Series="{Binding TopAirlinesSeries}"
+                                  LegendPosition="Right">
+                    </lvc:PieChart>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Traffic by time of day -->
+        <Border Grid.Row="1" Background="#2C2C2C" Padding="15" CornerRadius="8" Margin="0,0,0,10">
+            <Grid RowDefinitions="Auto, *">
+                <TextBlock Grid.Row="0" Text="Traffic by time of day (flight departures)" Foreground="#AAAAAA" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                <lvc:CartesianChart Grid.Row="1"
+                                    Series="{Binding TrafficSeries}"
+                                    XAxes="{Binding TrafficXAxes}"
+                                    YAxes="{Binding TrafficYAxes}">
+                </lvc:CartesianChart>
+            </Grid>
+        </Border>
+
+        <TextBlock Grid.Row="2" Text="LINQ queries: GroupBy route, OrderByDescending count · GroupBy airline · GroupBy departure hour"
+                   Foreground="#888888" FontSize="12"/>
+    </Grid>
 </UserControl>

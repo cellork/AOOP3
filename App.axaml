@@ -2,7 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="AOOP3.App"
              xmlns:local="using:AOOP3"
-             RequestedThemeVariant="Default">
+             xmlns:vm="using:AOOP3.ViewModels"
+             RequestedThemeVariant="Dark">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
@@ -11,5 +12,11 @@
   
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
     </Application.Styles>
+
+    <Application.Resources>
+        <Geometry x:Key="LineGeometry">M 2.5 12.5 L 17.5 12.5 M 10 2.5 L 10 22.5</Geometry>
+        <vm:StatusToColorConverter x:Key="StatusToColorConverter" />
+    </Application.Resources>
 </Application>
