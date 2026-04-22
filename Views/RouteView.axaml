@@ -1,10 +1,46 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="using:AOOP3.ViewModels"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:sp="clr-namespace:ScottPlot.Avalonia;assembly=ScottPlot.Avalonia"
-             mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="550"
+             xmlns:vm="clr-namespace:AOOP3.ViewModels"
+             xmlns:mapsui="clr-namespace:Mapsui.UI.Avalonia;assembly=Mapsui.UI.Avalonia"
              x:Class="AOOP3.Views.RouteView"
              x:DataType="vm:RouteViewModel">
+
+    <Grid ColumnDefinitions="350, *">
+        
+        <Border Grid.Column="0" Background="{DynamicResource SystemRegionBrush}" Padding="15">
+            <Grid RowDefinitions="Auto, *, Auto, Auto">
+                
+                <TextBox Grid.Row="0" 
+                         Text="{Binding SearchQuery, Mode=TwoWay}" 
+                         PlaceholderText="Search airport by Name or IATA..." 
+                         Margin="0,0,0,10" />
+
+                <ListBox Grid.Row="1" 
+                         ItemsSource="{Binding FilteredAirports}" 
+                         SelectedItem="{Binding SelectedAirport, Mode=TwoWay}"
+                         Margin="0,0,0,15">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <StackPanel Grid.Row="2" Spacing="5" Margin="0,0,0,15">
+                    <TextBlock Text="Route Statistics" FontWeight="Bold" />
+                    <TextBlock Text="{Binding DestinationCount, StringFormat='Available Destinations: {0}'}" />
+                    <TextBlock Text="{Binding DailyFlightCount, StringFormat='Daily Flights: {0}'}" />
+                </StackPanel>
+
+                <Button Grid.Row="3" 
+                        Content="Clear Selection" 
+                        Command="{Binding ClearCommand}" 
+                        HorizontalAlignment="Stretch" 
+                        HorizontalContentAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <mapsui:MapControl Grid.Column="1" Map="{Binding Map}" />
+        
+    </Grid>
 </UserControl>
